@@ -132,6 +132,12 @@ app.post("/api/chat", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Free local AI assistant running at http://localhost:${PORT}`);
-});
+// Local computer ke liye:
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Free local AI assistant running at http://localhost:${PORT}`);
+  });
+}
+
+// Vercel ke liye:
+export default app;
