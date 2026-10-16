@@ -8,6 +8,7 @@ import velvetBrewProject from "./assets/velvet-brew-project.png";
 import cvFile from "./assets/Emaan-Fatima-CV.pdf";
 import aiMascot from "./assets/ai-mascot.png";
 
+
 const skills = [
   "HTML",
   "CSS",
@@ -127,39 +128,55 @@ const sendMessage = async () => {
     setLoading(false);
   }
 };
+function App() {
+const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="portfolio">
       {/* Navigation */}
-      <header className="navbar">
-        <a className="logo" href="#home">
-          EF<span>.</span>
-        </a>
+<header className="navbar">
+  <a className="logo" href="#home" onClick={() => setMenuOpen(false)}>
+    EF<span>.</span>
+  </a>
 
-        <nav>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-        </nav>
+  <button
+    className="menu-toggle"
+    type="button"
+    aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+    aria-expanded={menuOpen}
+    onClick={() => setMenuOpen(!menuOpen)}
+  >
+    {menuOpen ? "✕" : "☰"}
+  </button>
 
-        <a
-          className="nav-github"
-          href="https://github.com/enaf1678-debug"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub ↗
-        </a>
-        <a
-  className="nav-linkedin"
-  href="https://www.linkedin.com/in/emaan-fatima-bb61533b0"
-  target="_blank"
-  rel="noreferrer"
->
-  LinkedIn ↗
-</a>
-      </header>
+  <nav className={menuOpen ? "nav-open" : ""}>
+    <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+    <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+    <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+    <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+    <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+  </nav>
+
+  <div className="navbar-socials">
+    <a
+      className="nav-github"
+      href="https://github.com/enaf1678-debug"
+      target="_blank"
+      rel="noreferrer"
+    >
+      GitHub ↗
+    </a>
+
+    <a
+      className="nav-linkedin"
+      href="https://www.linkedin.com/in/emaan-fatima-bb61533b0"
+      target="_blank"
+      rel="noreferrer"
+    >
+      LinkedIn ↗
+    </a>
+  </div>
+</header>
+
 
       {/* Hero */}
       <main id="home">
@@ -622,6 +639,7 @@ const sendMessage = async () => {
 </footer>
     </div>
   );
+}
 }
 
 export default App;
