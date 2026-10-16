@@ -128,7 +128,6 @@ const sendMessage = async () => {
     setLoading(false);
   }
 };
-function App() {
 const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="portfolio">
@@ -640,6 +639,4 @@ const [menuOpen, setMenuOpen] = useState(false);
     </div>
   );
 }
-}
-
 export default App;
