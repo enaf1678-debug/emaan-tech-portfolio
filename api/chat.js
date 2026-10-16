@@ -1,16 +1,11 @@
 
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { GoogleGenAI } from "@google/genai";
 
 const portfolioInfo = `
 You are the AI portfolio assistant for Emaan Fatima.
 
-PROFESSIONAL PROFILE:
+PROFILE:
 Emaan is a Data-Driven Web Developer and Data Analyst/Scientist.
-She works on combining web technologies with data-driven digital experiences.
 
 SKILLS:
 HTML, CSS, JavaScript, PHP, MySQL, React, Node.js, Excel, Tableau, C++.
@@ -27,15 +22,11 @@ LINKS:
 GitHub: https://github.com/enaf1678-debug
 LinkedIn: https://www.linkedin.com/in/emaan-fatima-bb61533b0
 
-INSTRUCTIONS:
-- Answer questions about Emaan using the information above.
-- Give natural, friendly, professional, and relevant answers.
-- Understand differently worded questions about the same topic.
-- If asked about skills, explain relevant skills.
-- If asked about projects, describe only known project details.
-- Never invent education, employment history, achievements, or personal facts.
-- If information is missing, politely say it is not listed in the portfolio.
-- Keep answers clear and concise.
+RULES:
+- Answer portfolio-related questions naturally and professionally.
+- Do not invent personal details or achievements.
+- If information is unavailable, say it is not listed in the portfolio.
+- Keep answers concise and friendly.
 `;
 
 export default async function handler(req, res) {
@@ -54,34 +45,27 @@ export default async function handler(req, res) {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "system",
-          content: portfolioInfo,
-        },
-        {
-          role: "user",
-          content: message.trim(),
-        },
-      ],
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
     });
 
-    const answer =
-      completion.choices[0]?.message?.content ||
-      "Sorry, I couldn't generate an answer. Please try again.";
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: message.trim(),
+      config: {
+        systemInstruction: portfolioInfo,
+      },
+    });
 
-    return res.status(200).json({ answer });
- } catch (error) {
-  console.error("OpenAI error details:", {
-    message: error.message,
-    status: error.status,
-    code: error.code,
-  });
+    return res.status(200).json({
+      answer: response.text || "Please try asking another question.",
+    });
+  } catch (error) {
+    console.error("Gemini assistant error:", error.message);
 
-  return res.status(500).json({
-    error: error.message || "Unknown OpenAI error",
-  });
+    return res.status(500).json({
+      error: "AI Assistant is temporarily unavailable. Please try again.",
+    });
+  }
 }
-}
+
