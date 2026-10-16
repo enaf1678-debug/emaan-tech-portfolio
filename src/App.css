@@ -1268,164 +1268,7 @@ footer small {
   }
 }
 
-/* ================================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 900px) {
-  .navbar nav {
-    display: none;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding-top: 65px;
-  }
-
-  .hero-art {
-    order: -1;
-  }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .skills-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .projects-grid,
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .skill-categories {
-    grid-template-columns: 1fr;
-  }
-
-  .skill-categories > div {
-    border-right: none;
-    border-bottom: 3px solid var(--ink);
-  }
-
-  .skill-categories > div:last-child {
-    border-bottom: none;
-  }
-
-  .ai-section {
-    grid-template-columns: auto 1fr;
-  }
-
-  .ai-section > button {
-    grid-column: 2;
-    justify-self: start;
-  }
-
-  footer {
-    grid-template-columns: 1fr;
-  }
-
-  footer small {
-    justify-self: start;
-  }
-}
-
-@media (max-width: 600px) {
-  .navbar,
-  .hero,
-  .section,
-  .ai-section,
-  footer {
-    width: min(100% - 28px, 1180px);
-  }
-
-  .navbar {
-    padding: 18px 0;
-  }
-
-  .nav-github {
-    padding: 8px 10px;
-  }
-
-  .hero {
-    min-height: auto;
-    padding: 55px 0 80px;
-  }
-
-  .hero h1 {
-    font-size: 46px;
-    letter-spacing: -4px;
-  }
-
-  .hero-description {
-    font-size: 16px;
-  }
-
-  .pixel-window {
-    min-height: 350px;
-  }
-
-  .terminal {
-    padding: 35px 20px;
-    font-size: 12px;
-  }
-
-  .floating-badge {
-    padding: 8px 11px;
-    font-size: 11px;
-  }
-
-  .badge-one {
-    right: -10px;
-  }
-
-  .badge-two {
-    left: -10px;
-  }
-
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .section {
-    padding: 75px 0;
-  }
-
-  .section-heading {
-    margin-bottom: 35px;
-  }
-
-  .section-heading h2 {
-    font-size: 38px;
-    letter-spacing: -3px;
-  }
-
-  .ai-section {
-    margin: 70px auto;
-    padding: 28px;
-    grid-template-columns: 1fr;
-  }
-
-  .ai-section > button {
-    grid-column: auto;
-  }
-
-  .contact-box {
-    padding: 50px 25px;
-  }
-
-  .contact-box h2 {
-    font-size: 48px;
-  }
-
-  footer {
-    padding-bottom: 30px;
-  }
-
-  .footer-links {
-    flex-wrap: wrap;
-  }
-  .profile-card {
+.profile-card {
   position: relative;
   width: min(390px, 90vw);
   background: #fffdf2;
@@ -1496,6 +1339,202 @@ footer small {
   font-size: 12px;
 }
 
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .navbar nav {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 65px;
+  }
+
+  .hero-art {
+    order: -1;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .projects-grid,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-categories > div {
+    border-right: none;
+    border-bottom: 3px solid var(--ink);
+  }
+
+  .skill-categories > div:last-child {
+    border-bottom: none;
+  }
+
+  .ai-section {
+    grid-template-columns: auto 1fr;
+  }
+
+  .ai-section > button {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
+  footer small {
+    justify-self: start;
+  }
+}
+  @media (max-width: 768px) {
+
+  .profile-card {
+    width: min(340px, 88vw);
+  }
+
+  .profile-photo {
+    height: 380px;
+  }
+
+  .badge-one {
+    left: -15px;
+  }
+
+  .badge-two {
+    right: -15px;
+  }
+
+  .badge-three {
+    left: -10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar,
+  .hero,
+  .section,
+  .ai-section,
+  footer {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .navbar {
+    padding: 18px 0;
+  }
+
+  .nav-github {
+    padding: 8px 10px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 55px 0 80px;
+  }
+
+  .hero h1 {
+    font-size: 46px;
+    letter-spacing: -4px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .pixel-window {
+    min-height: 350px;
+  }
+
+  .terminal {
+    padding: 35px 20px;
+    font-size: 12px;
+  }
+
+  /* Mobile profile badges fix */
+.floating-badge {
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.2;
+  width: auto;
+  max-width: 100px;
+  box-sizing: border-box;
+}
+
+.badge-one {
+  top: 90px;
+  left: -8px;
+  right: auto;
+}
+
+.badge-two {
+  bottom: 75px;
+  right: -8px;
+  left: auto;
+}
+
+.badge-three {
+  right: 5px;
+  bottom: 15px;
+  left: auto;
+}
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section {
+    padding: 75px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 35px;
+  }
+
+  .section-heading h2 {
+    font-size: 38px;
+    letter-spacing: -3px;
+  }
+
+  .ai-section {
+    margin: 70px auto;
+    padding: 28px;
+    grid-template-columns: 1fr;
+  }
+
+  .ai-section > button {
+    grid-column: auto;
+  }
+
+  .contact-box {
+    padding: 50px 25px;
+  }
+
+  .contact-box h2 {
+    font-size: 48px;
+  }
+
+  footer {
+    padding-bottom: 30px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+  
 .floating-badge {
   position: absolute;
   padding: 8px 12px;
@@ -1536,27 +1575,7 @@ footer small {
   }
 }
 
-@media (max-width: 768px) {
-  .profile-card {
-    width: min(340px, 88vw);
-  }
 
-  .profile-photo {
-    height: 380px;
-  }
-
-  .badge-one {
-    left: -15px;
-  }
-
-  .badge-two {
-    right: -15px;
-  }
-
-  .badge-three {
-    left: -10px;
-  }
-}
 /* Bigger Footer */
 footer {
   min-height: 320px;
