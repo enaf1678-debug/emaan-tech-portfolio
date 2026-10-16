@@ -73,11 +73,15 @@ export default async function handler(req, res) {
       "Sorry, I couldn't generate an answer. Please try again.";
 
     return res.status(200).json({ answer });
-  } catch (error) {
-    console.error("Portfolio assistant error:", error.message);
+ } catch (error) {
+  console.error("OpenAI error details:", {
+    message: error.message,
+    status: error.status,
+    code: error.code,
+  });
 
-    return res.status(500).json({
-      error: "The assistant is temporarily unavailable. Please try again.",
-    });
-  }
+  return res.status(500).json({
+    error: error.message || "Unknown OpenAI error",
+  });
+}
 }
