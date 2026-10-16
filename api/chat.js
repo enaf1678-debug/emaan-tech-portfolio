@@ -1,65 +1,83 @@
 
-const emaanInfo = {
-  name: "Emaan Fatima",
-  role: "Data-Driven Web Developer and Data Analyst/Scientist",
-  skills: [
-    "HTML", "CSS", "JavaScript", "PHP", "MySQL",
-    "React", "Node.js", "Excel", "Tableau", "C++"
-  ],
-  projects: [
-    "Portfolio/Web project",
-    "PHP project",
-    "Velvet Brew project"
-  ],
-  services: [
-    "Web development",
-    "Data analytics",
-    "Data-driven digital experiences"
-  ]
-};
+import OpenAI from "openai";
 
-function createAnswer(message) {
-  const question = message.toLowerCase();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-  if (question.includes("skill")) {
-    return `Emaan's skills include ${emaanInfo.skills.join(", ")}.`;
-  }
+const portfolioInfo = `
+You are the AI portfolio assistant for Emaan Fatima.
 
-  if (question.includes("project")) {
-    return `Emaan's projects include ${emaanInfo.projects.join(", ")}.`;
-  }
+PROFESSIONAL PROFILE:
+Emaan is a Data-Driven Web Developer and Data Analyst/Scientist.
+She works on combining web technologies with data-driven digital experiences.
 
-  if (question.includes("service")) {
-    return `Emaan offers ${emaanInfo.services.join(", ")}.`;
-  }
+SKILLS:
+HTML, CSS, JavaScript, PHP, MySQL, React, Node.js, Excel, Tableau, C++.
 
-  if (
-    question.includes("about") ||
-    question.includes("who is") ||
-    question.includes("background")
-  ) {
-    return `Emaan Fatima is a ${emaanInfo.role}.`;
-  }
+PROJECTS:
+1. Personal portfolio website.
+2. PHP and MySQL project.
+3. Velvet Brew cafe website.
 
-  if (/\b(hi|hello|hey)\b/.test(question)) {
-    return "Hi! Ask me about Emaan's skills, projects, or services.";
-  }
+SERVICES:
+Web development, data analytics, and data-driven digital experiences.
 
-  return "You can ask me about Emaan's skills, projects, services, or background.";
-}
+LINKS:
+GitHub: https://github.com/enaf1678-debug
+LinkedIn: https://www.linkedin.com/in/emaan-fatima-bb61533b0
 
-export default function handler(req, res) {
+INSTRUCTIONS:
+- Answer questions about Emaan using the information above.
+- Give natural, friendly, professional, and relevant answers.
+- Understand differently worded questions about the same topic.
+- If asked about skills, explain relevant skills.
+- If asked about projects, describe only known project details.
+- Never invent education, employment history, achievements, or personal facts.
+- If information is missing, politely say it is not listed in the portfolio.
+- Keep answers clear and concise.
+`;
+
+export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+      error: "Method not allowed",
+    });
   }
 
   const { message } = req.body || {};
 
   if (typeof message !== "string" || !message.trim()) {
-    return res.status(400).json({ error: "Message is required" });
+    return res.status(400).json({
+      error: "Please enter a message.",
+    });
   }
 
-  return res.status(200).json({
-    answer: createAnswer(message.trim())
-  });
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: portfolioInfo,
+        },
+        {
+          role: "user",
+          content: message.trim(),
+        },
+      ],
+    });
+
+    const answer =
+      completion.choices[0]?.message?.content ||
+      "Sorry, I couldn't generate an answer. Please try again.";
+
+    return res.status(200).json({ answer });
+  } catch (error) {
+    console.error("Portfolio assistant error:", error.message);
+
+    return res.status(500).json({
+      error: "The assistant is temporarily unavailable. Please try again.",
+    });
+  }
 }
